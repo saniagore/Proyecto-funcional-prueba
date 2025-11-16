@@ -1,5 +1,3 @@
-import scala.collection.parallel.CollectionConverters._
-
 // Envuelve todo el código en un objeto
 object Main extends App {
 
@@ -107,13 +105,11 @@ object Main extends App {
             resto <- buscarItinerariosPar(vuelo.Dst, cod2, visitados + cod1)
           } yield vuelo :: resto
         } else {
-          // Cada vuelo se procesa en su propia tarea.
-          val tasks = for (vuelo <- vuelosValidos)
-            yield task {
-              val subItinerarios = buscarItinerariosPar(vuelo.Dst, cod2, visitados + cod1)
-              subItinerarios.map(resto => vuelo :: resto)
-            }
-          (for (t <- tasks) yield t.join()).flatten
+          // Procesamiento paralelo usando par collection
+          vuelosValidos.par.flatMap { vuelo =>
+            val subItinerarios = buscarItinerariosPar(vuelo.Dst, cod2, visitados + cod1)
+            subItinerarios.map(resto => vuelo :: resto)
+          }.toList
         }
       }
     }
@@ -155,7 +151,11 @@ object Main extends App {
       (codOrigen, codDestino) => {
 
         // Helper para sumar las escalas de todos los vuelos de una ruta
-        def calcularEscalas(itinerario: List[Vuelo]): Int = itinerario.map(_.Esc).sum
+        def calcularEscalas(itinerario: List[Vuelo]): Int = {
+          val escalasTecnicas = itinerario.map(_.Esc).sum
+          val escalasPorConexion = if (itinerario.isEmpty) 0 else itinerario.length - 1
+          escalasTecnicas + escalasPorConexion
+        }
 
         /**
          * Busca todos los caminos (DFS).
