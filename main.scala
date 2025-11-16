@@ -197,31 +197,40 @@ object Main extends App {
   val aeropuertosPrueba = aeropuertosCurso
   val itsEscalasPar = itinerariosEscalasPar(vuelosPrueba, aeropuertosPrueba)
 
+  val itsEscalasSec = itinerariosEscalas(vuelosPrueba, aeropuertosPrueba)
   // --- PRUEBA 1: MID -> SVCS (Vuelo único) ---
   println("\n--- PRUEBA 1: MID -> SVCS ---")
   val itsel_par = itsEscalasPar("MID", "SVCS")
   println(s"Paralelo:   $itsel_par")
+  val itsel_sec = itsEscalasSec("MID", "SVCS")
+  println(s"Secuencial: $itsel_sec")
 
   // --- PRUEBA 2: CLO -> SVCS (No conectado) ---
   println("\n--- PRUEBA 2: CLO -> SVCS ---")
   val itsel2_par = itsEscalasPar("CLO", "SVCS")
   println(s"Paralelo:   $itsel2_par")
+    val itsel2_sec = itsEscalasSec("CLO", "SVCS")
+  println(s"Secuencial: $itsel2_sec")
 
   // --- PRUEBA 3: CLO -> SVO (Caso clave) ---
   println("\n--- PRUEBA 3: CLO -> SVO ---")
   val itsel3_par = itsEscalasPar("CLO", "SVO")
   println(s"Paralelo:   $itsel3_par")
+    val itsel3_sec = itsEscalasSec("CLO", "SVO")
+  println(s"Secuencial: $itsel3_sec")
 
   // --- PRUEBA 4: CLO -> MEX ---
   println("\n--- PRUEBA 4: CLO -> MEX ---")
   val itsc4_par = itsEscalasPar("CLO", "MEX")
   println(s"Paralelo:   $itsc4_par")
+    val itsc4_sec = itsEscalasSec("CLO", "MEX")
+  println(s"Secuencial: $itsc4_sec")
 
   // --- PRUEBA 5: CTG -> PTY ---
   println("\n--- PRUEBA 5: CTG -> PTY ---")
   val itsc5_par = itsEscalasPar("CTG", "PTY")
   println(s"Paralelo:   $itsc5_par")
-
-  println("\n--- ✅ Pruebas Completadas ---")
+    val itsc5_sec = itsEscalasSec("CTG", "PTY")
+  println(s"Secuencial: $itsc5_sec")
 
 } // Cierre del 'object Main'
