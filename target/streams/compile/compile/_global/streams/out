@@ -1,0 +1,10 @@
+[0m[[0m[31merror[0m] [0m[0m/home/runner/workspace/main.scala:1:34: object CollectionConverters is not a member of package scala.collection.parallel[0m
+[0m[[0m[31merror[0m] [0m[0mimport scala.collection.parallel.CollectionConverters._[0m
+[0m[[0m[31merror[0m] [0m[0m                                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/runner/workspace/main.scala:112:19: not found: value task[0m
+[0m[[0m[31merror[0m] [0m[0m            yield task {[0m
+[0m[[0m[31merror[0m] [0m[0m                  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/runner/workspace/main.scala:116:37: value join is not a member of Nothing[0m
+[0m[[0m[31merror[0m] [0m[0m          (for (t <- tasks) yield t.join()).flatten[0m
+[0m[[0m[31merror[0m] [0m[0m                                    ^[0m
+[0m[[0m[31merror[0m] [0m[0mthree errors found[0m
