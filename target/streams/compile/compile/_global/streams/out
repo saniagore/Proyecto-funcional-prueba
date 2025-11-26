@@ -1,4 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0mC:\Users\Kyler\OneDrive\Escritorio\Trabajos Programacion\Proyecto final para mi concurrente\BlindAlarmedPrinters\Operaciones.scala:274:7: ';' expected but 'else' found.[0m
-[0m[[0m[31merror[0m] [0m[0m      else {[0m
-[0m[[0m[31merror[0m] [0m[0m      ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Kyler\OneDrive\Escritorio\Trabajos Programacion\Proyecto final para mi concurrente\BlindAlarmedPrinters\main.scala:15:1: Missing closing brace `}' assumed here[0m
+[0m[[0m[31merror[0m] [0m[0mimport Datos._[0m
+[0m[[0m[31merror[0m] [0m[0m^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m

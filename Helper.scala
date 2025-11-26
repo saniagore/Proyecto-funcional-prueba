@@ -1,24 +1,50 @@
 import Datos._
 
 object Helper {
-  def imprimirTablaResultados(resultados: List[(String, String, String, String, String, String, String, String, String)]): Unit = {
-    val headers = List("Prueba", "Origen", "Destino", "Criterio", "N° Itin (Par)", "N° Itin (Sec)", "Coinciden?", "T. Par (ms)", "T. Sec (ms)")
-    val rows = resultados.map { case (p, o, d, c, np, ns, co, tp, ts) =>
-      List(p, o, d, c, np, ns, co, tp, ts)
-    }
+  // Definir anchos fijos para las columnas
+  private val colWidths = List(8, 8, 8, 10, 15, 15, 12, 12, 12)
+  private val separator = colWidths.map("-" * _).mkString("+", "+", "+")
 
-    val colWidths = (headers :: rows).transpose.map(_.map(_.length).max + 2)
-    val formatRow = (row: List[String]) =>
-      row.zip(colWidths).map { case (cell, width) => cell.padTo(width, ' ') }.mkString("|", "|", "|")
+  private def formatRow(row: List[String]): String = {
+    row.zip(colWidths).map { case (cell, width) =>
+      // Truncar si es muy largo, rellenar si es corto
+      val cellStr = if (cell.length > width) cell.take(width) else cell
+      cellStr.padTo(width, ' ')
+    }.mkString("|", "|", "|")
+  }
 
-    val separator = colWidths.map("-" * _).mkString("+", "+", "+")
-
+  def imprimirCabecera(headers: List[String]): Unit = {
     println(separator)
     println(formatRow(headers))
     println(separator)
-    rows.foreach { row =>
-      println(formatRow(row))
-    }
+  }
+
+  def imprimirResultado(row: List[String]): Unit = {
+    println(formatRow(row))
+  }
+
+  def imprimirCierre(): Unit = {
     println(separator)
+  }
+
+  def imprimirTablaResumen(stats: List[(String, Long, Long, Double)]): Unit = {
+    val headers = List("Algoritmo", "T. Par (ms)", "T. Sec (ms)", "Speedup")
+    val widths = List(15, 15, 15, 10)
+    val sep = widths.map("-" * _).mkString("+", "+", "+")
+
+    val format = (row: List[String]) =>
+      row.zip(widths).map { case (cell, width) =>
+        val cellStr = if (cell.length > width) cell.take(width) else cell
+        cellStr.padTo(width, ' ')
+      }.mkString("|", "|", "|")
+
+    println("\nRESUMEN DE RENDIMIENTO")
+    println(sep)
+    println(format(headers))
+    println(sep)
+    stats.foreach { case (alg, tp, ts, su) =>
+      println(format(List(alg, tp.toString, ts.toString, f"$su%2.2f")))
+    }
+    println(sep)
   }
 }
