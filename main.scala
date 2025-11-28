@@ -32,7 +32,6 @@ object Main extends App {
     ("26", "SYD", "LAX"), ("27", "SFO", "HNL"), ("28", "HNL", "AKL"), ("29", "AKL", "SYD"), ("30", "SIN", "LHR"),
     ("31", "LHR", "JFK"), ("32", "FRA", "BOG"), ("33", "MUC", "DEN"), ("34", "ZRH", "MIA"), ("35", "AMS", "PTY"),
     ("36", "PTY", "SJO"), ("37", "SJO", "GUA"), ("38", "GUA", "MEX"), ("39", "MEX", "CUN"), ("40", "CUN", "HAV"),
-    // 60 Pruebas adicionales
     ("41", "BOG", "MIA"), ("42", "MDE", "PTY"), ("43", "CTG", "JFK"), ("44", "CLO", "MAD"), ("45", "BAQ", "MIA"),
     ("46", "SMR", "BOG"), ("47", "PTY", "LAX"), ("48", "JFK", "LHR"), ("49", "MIA", "EZE"), ("50", "MEX", "LIM"),
     ("51", "MAD", "DXB"), ("52", "SVCS", "MIA"), ("53", "MID", "MEX"), ("54", "AUA", "AMS"), ("55", "IST", "HND"),
@@ -45,7 +44,6 @@ object Main extends App {
     ("86", "LPB", "BOG"), ("87", "VVI", "MIA"), ("88", "GRU", "JFK"), ("89", "GIG", "LIS"), ("90", "CDG", "JFK"),
     ("91", "SYD", "SFO"), ("92", "HNL", "LAX"), ("93", "AKL", "LAX"), ("94", "SIN", "FRA"), ("95", "LHR", "DXB"),
     ("96", "FRA", "JFK"), ("97", "MUC", "ORD"), ("98", "ZRH", "JFK"), ("99", "AMS", "MSP"), ("100", "SJO", "MIA"),
-    // 100 Pruebas adicionales
     ("101", "MAD", "BOG"), ("102", "CDG", "ATL"), ("103", "SYD", "DXB"), ("104", "HND", "SFO"), ("105", "JFK", "LHR"),
     ("106", "MIA", "EZE"), ("107", "MEX", "LIM"), ("108", "GRU", "JFK"), ("109", "GIG", "MIA"), ("110", "CDG", "JFK"),
     ("111", "SYD", "SFO"), ("112", "HNL", "LAX"), ("113", "AKL", "LAX"), ("114", "SIN", "FRA"), ("115", "LHR", "DXB"),

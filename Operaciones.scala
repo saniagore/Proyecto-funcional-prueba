@@ -9,16 +9,10 @@ object Operaciones {
     val vuelosPorOrigen = vuelos.groupBy(_.Org)
     val codsValidos = aeropuertos.map(_.Cod).toSet
 
-    // Añadimos límite de conexiones para prevenir OUT OF MEMORY
-    val MAX_CONEXIONES = 4
-
-    def buscarItinerariosPar(cod1: String, cod2: String, visitados: Set[String], conexiones: Int): List[Itinerario] = {
+    def buscarItinerariosPar(cod1: String, cod2: String, visitados: Set[String]): List[Itinerario] = {
       // Caso base: llegó al destino
       if (cod1 == cod2) {
         List(Nil)
-      } // CONDICIÓN DE PARADA: Si excedemos las conexiones, devolvemos List()
-      else if (conexiones >= MAX_CONEXIONES) {
-        List()
       } else {
         val vuelosSalientes = vuelosPorOrigen.getOrElse(cod1, Nil)
         val vuelosValidos = vuelosSalientes.filter(v => !visitados.contains(v.Dst))
@@ -27,13 +21,13 @@ object Operaciones {
         if (vuelosValidos.length <= 1) {
           for {
             vuelo <- vuelosValidos
-            resto <- buscarItinerariosPar(vuelo.Dst, cod2, visitados + cod1, conexiones + 1)
+            resto <- buscarItinerariosPar(vuelo.Dst, cod2, visitados + cod1)
           } yield vuelo :: resto
         } else {
           // Cada vuelo se procesa en su propia tarea.
           val tasks = for (vuelo <- vuelosValidos)
             yield task {
-              val subItinerarios = buscarItinerariosPar(vuelo.Dst, cod2, visitados + cod1, conexiones + 1)
+              val subItinerarios = buscarItinerariosPar(vuelo.Dst, cod2, visitados + cod1)
               subItinerarios.map(resto => vuelo :: resto)
             }
           (for (t <- tasks) yield t.join()).flatten
@@ -45,7 +39,7 @@ object Operaciones {
       if (!codsValidos.contains(cod1) || !codsValidos.contains(cod2)) {
         List()
       } else {
-        buscarItinerariosPar(cod1, cod2, Set(), 0)
+        buscarItinerariosPar(cod1, cod2, Set())
       }
     }
   }
@@ -299,16 +293,10 @@ object Operaciones {
     val vuelosPorOrigen = vuelos.groupBy(_.Org)
     val codsValidos = aeropuertos.map(_.Cod).toSet
 
-    // Añadimos límite de conexiones para prevenir OUT OF MEMORY
-    val MAX_CONEXIONES = 4
-
     // Función recursiva que busca todos los itinerarios desde un aeropuerto de origen (cod1) hasta un destino (cod2)
-    def buscarItinerarios(cod1: String, cod2: String, visitados: Set[String], conexiones: Int): List[Itinerario] = {
+    def buscarItinerarios(cod1: String, cod2: String, visitados: Set[String]): List[Itinerario] = {
       if (cod1 == cod2) {
         List(Nil)
-      } // CONDICIÓN DE PARADA: Si excedemos las conexiones, devolvemos List()
-      else if (conexiones >= MAX_CONEXIONES) {
-        List()
       } else {
         // Obtenemos los vuelos que salen del aeropuerto actual
         val vuelosSalientes = vuelosPorOrigen.getOrElse(cod1, Nil)
@@ -318,7 +306,7 @@ object Operaciones {
         // Exploramos recursivamente los destinos posibles, concatenando el vuelo actual con el resto del itinerario
         for {
           vuelo <- vuelosValidos
-          resto <- buscarItinerarios(vuelo.Dst, cod2, visitados + cod1, conexiones + 1)
+          resto <- buscarItinerarios(vuelo.Dst, cod2, visitados + cod1)
         } yield vuelo :: resto
       }
     }
@@ -330,7 +318,7 @@ object Operaciones {
         List()
       } else {
         // Si es válido, tons iniciamos la búsqueda recursiva desde el aeropuerto de origen hacia el destino
-        buscarItinerarios(cod1, cod2, Set(), 0)
+        buscarItinerarios(cod1, cod2, Set())
       }
     }
   }
